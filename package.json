@@ -9,13 +9,15 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "socket.io": "^4.7.2"
+    "socket.io": "^4.7.2",
+    "body-parser": "^1.20.2",
+    "pdfkit": "^0.13.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
   },
   "engines": {
-    "node": ">=18"
+    "node": "18.x"
   },
   "author": "TonNom",
   "license": "MIT"
