@@ -1,0 +1,24 @@
+const socket = io();
+let peer = new RTCPeerConnection();
+
+peer.ondatachannel = (event) => {
+  let channel = event.channel;
+  channel.onmessage = (e) => {
+    let msgDiv = document.getElementById("messages");
+    let data = JSON.parse(e.data);
+    msgDiv.innerHTML += `<p><strong>${data.name}</strong>: ${data.request}</p>`;
+  };
+};
+
+socket.on("signal", async (data) => {
+  await peer.setRemoteDescription(new RTCSessionDescription(data));
+  if (data.type === "offer") {
+    let answer = await peer.createAnswer();
+    await peer.setLocalDescription(answer);
+    socket.emit("signal", answer);
+  }
+});
+
+function printPDF() {
+  window.open("/api/print", "_blank");
+}
